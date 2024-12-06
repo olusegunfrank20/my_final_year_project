@@ -1,5 +1,5 @@
 // JavaScript to toggle the lamp states and communicate with the backend
-const backendUrl = 'http://automaticcontrol.infinityfreeapp.com'; // Replace with your hosted backend URL
+const backendUrl = 'https://automaticcontrol.infinityfreeapp.com'; // Replace with your hosted backend URL
 
 // Function to toggle a switch
 function toggleSwitch(button, lampId) {
