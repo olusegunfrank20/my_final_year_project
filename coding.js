@@ -1,5 +1,5 @@
-// Backend URL
-const backendUrl = 'https://automaticcontrol.infinityfreeapp.com'; // Replace with your secured backend URL
+// JavaScript to toggle the lamp states and communicate with the backend
+const backendUrl = 'https://automaticcontrol.infinityfreeapp.com'; // Replace with your hosted backend URL
 
 // Function to toggle a switch
 function toggleSwitch(button, lampId) {
@@ -22,22 +22,19 @@ async function updateLampState(lampId, state) {
         const response = await fetch(`${backendUrl}/update-lamp.php`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ lampId, state })
+            body: JSON.stringify({ lampId: lampId, state: state })
         });
 
         const result = await response.json();
-
         if (result.success) {
-            console.log(`Lamp ${lampId} updated successfully to ${state}`);
+            console.log(`Lamp ${lampId} is now ${state}`);
         } else {
-            console.error('Failed to update lamp:', result.message);
-            alert(`Failed to update lamp ${lampId}: ${result.message}`);
+            console.log('Failed to update lamp state');
         }
     } catch (error) {
         console.error('Error updating lamp state:', error);
-        alert('An error occurred while updating the lamp state.');
     }
 }
 
@@ -55,11 +52,10 @@ async function fetchLampStatuses() {
         });
     } catch (error) {
         console.error('Error fetching lamp statuses:', error);
-        alert('An error occurred while fetching lamp statuses.');
     }
 }
 
-// Initialize the page by fetching the current lamp states
+// Call the fetchLampStatuses function to load the current lamp states when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     fetchLampStatuses();
 });
