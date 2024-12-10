@@ -1,38 +1,49 @@
-// Array to store the status of lamps
-let lampStatus = [false, false, false, false];
-
 // Function to toggle the lamp status
 function toggleSwitch(button, lampId) {
     // Toggle the status of the lamp
     lampStatus[lampId - 1] = !lampStatus[lampId - 1];
     const isOn = lampStatus[lampId - 1];
 
-    // Update button text and style
-    button.textContent = isOn ? "On" : "Off";
-    button.classList.toggle("active", isOn);
+    // Send update to backend
+    fetch('https://your-backend-url.com/update-lamp', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ lampId, status: isOn }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Lamp status updated successfully:', data);
 
-    // Update the system status
-    updateSystemStatus();
+        // Update button text and style
+        button.textContent = isOn ? "On" : "Off";
+        button.classList.toggle("active", isOn);
+
+        // Update the system status
+        updateSystemStatus();
+    })
+    .catch(error => {
+        console.error('Error updating lamp status:', error);
+        alert('Failed to update the lamp status.');
+    });
 }
 
-// Function to update the system status message
-function updateSystemStatus() {
-    const statusElement = document.getElementById("system-status");
-
-    if (lampStatus.every((status) => status === true)) {
-        statusElement.textContent = "All lamps are currently ON.";
-        statusElement.style.color = "#2ecc71"; // Green text
-    } else if (lampStatus.every((status) => status === false)) {
-        statusElement.textContent = "All lamps are currently OFF.";
-        statusElement.style.color = "#e74c3c"; // Red text
-    } else {
-        const onCount = lampStatus.filter((status) => status).length;
-        statusElement.textContent = `${onCount} lamp(s) are ON, and ${lampStatus.length - onCount} lamp(s) are OFF.`;
-        statusElement.style.color = "#f39c12"; // Orange text
-    }
-}
-
-// Initialize system status on page load
+// Function to fetch initial statuses on page load
 document.addEventListener("DOMContentLoaded", () => {
-    updateSystemStatus();
+    fetch('https://your-backend-url.com/lamp-status')
+        .then(response => response.json())
+        .then(data => {
+            lampStatus = data.statuses; // Assuming backend returns an array of statuses
+            document.querySelectorAll('.lamp button').forEach((button, index) => {
+                const isOn = lampStatus[index];
+                button.textContent = isOn ? "On" : "Off";
+                button.classList.toggle("active", isOn);
+            });
+            updateSystemStatus();
+        })
+        .catch(error => {
+            console.error('Error fetching lamp statuses:', error);
+            alert('Failed to fetch lamp statuses.');
+        });
 });
