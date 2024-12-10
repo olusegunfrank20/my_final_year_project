@@ -1,60 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Home Automation</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="coding.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Automation System</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link your CSS file -->
 </head>
-
 <body>
-
-    <header>
-        <h1>Home Automation System</h1>
-        <p>Control your home appliances with ease!</p>
-    </header>
-
-    <main>
-        <div class="container">
-            <h2>Control Your Lamps</h2>
-            <div class="switch-container">
-                <!-- Lamp 1 -->
-                <div class="switch">
-                    <label>Lamp 1</label>
-                    <button onclick="toggleSwitch(this)">Off</button>
-                </div>
-
-                <!-- Lamp 2 -->
-                <div class="switch">
-                    <label>Lamp 2</label>
-                    <button onclick="toggleSwitch(this)">Off</button>
-                </div>
-
-                <!-- Lamp 3 -->
-                <div class="switch">
-                    <label>Lamp 3</label>
-                    <button onclick="toggleSwitch(this)">Off</button>
-                </div>
-
-                <!-- Lamp 4 -->
-                <div class="switch">
-                    <label>Lamp 4</label>
-                    <button onclick="toggleSwitch(this)">Off</button>
-                </div>
-            </div>
+    <h1>Home Automation System</h1>
+    <h2>Control Your Lamps</h2>
+    <div class="lamp-container">
+        <!-- Lamp 1 -->
+        <div class="lamp" id="lamp-1">
+            <h3>Lamp 1</h3>
+            <button onclick="toggleSwitch(this, 1)">Off</button>
         </div>
+        <!-- Lamp 2 -->
+        <div class="lamp" id="lamp-2">
+            <h3>Lamp 2</h3>
+            <button onclick="toggleSwitch(this, 2)">Off</button>
+        </div>
+        <!-- Lamp 3 -->
+        <div class="lamp" id="lamp-3">
+            <h3>Lamp 3</h3>
+            <button onclick="toggleSwitch(this, 3)">Off</button>
+        </div>
+        <!-- Lamp 4 -->
+        <div class="lamp" id="lamp-4">
+            <h3>Lamp 4</h3>
+            <button onclick="toggleSwitch(this, 4)">Off</button>
+        </div>
+    </div>
 
-        <section class="status">
-            <h2>System Status</h2>
-            <p id="statusMessage">All lamps are currently off.</p>
-        </section>
-    </main>
+    <!-- System Status Section -->
+    <div id="system-status-container">
+        <h2>System Status</h2>
+        <p id="system-status">Fetching lamp statuses...</p>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 Home Automation Inc. All rights reserved.</p>
-    </footer>
-
+    <script src="script.js"></script> <!-- Link to your JavaScript file -->
 </body>
 </html>
